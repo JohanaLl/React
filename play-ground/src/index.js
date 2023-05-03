@@ -6,8 +6,13 @@ import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  //Index.js utiliza el componente APP, por lo que acá 
+  //podemos enviar propiedades al componente
   <React.StrictMode>
-    <App />
+    {/* <App saludo="Holii" /> */}
+    <App>
+      Buenass
+    </App>
   </React.StrictMode>
 );
 
