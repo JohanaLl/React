@@ -10,7 +10,7 @@ root.render(
   //podemos enviar propiedades al componente
   <React.StrictMode>
     {/* <App saludo="Holii" /> */}
-    <App>
+    <App saludo="Holii">
       Buenass
     </App>
   </React.StrictMode>
