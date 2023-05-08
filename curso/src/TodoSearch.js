@@ -2,15 +2,21 @@ import React from "react";
 import './TodoSearch.css';
 
 function TodoSearch () {
+    /**searchValue -- estado
+     * setSearchValue -- función modificadora del estado
+     * Valor inicial del estado React.useState('')*/
+    const [searchValue, setSearchValue] = React.useState('');
+    console.log('Los usuarios buscan todos de ', searchValue);
+    /**Cada vez que se cambia el estado de un componente este
+     * vuelve a renderizarse
+     */
     return (
         <input 
-            placeholder="Cebolla" 
+            placeholder="Cortar cebolla" 
             className="TodoSearch"
+            value={searchValue}
             onChange={(event) => {
-                console.log('Escribiste en el TodoSearch');
-                console.log(event);
-                console.log(event.target);
-                console.log(event.target.value);
+                setSearchValue(event.target.value);
             }}
         />
     );
