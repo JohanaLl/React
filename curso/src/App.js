@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TodoCounter } from './TodoCounter'
 import { TodoSearch } from './TodoSearch'
 import { TodoList } from './TodoList'
@@ -11,18 +11,35 @@ const defaultTodos = [
   { text: 'Cortar tomate', completed: false },
   { text: 'Cortar pepino', completed: false },
   { text: 'Cortar nuevo', completed: false },
+  { text: 'Usar esatados derivados', completed: true },
 ];
 
 // Single page application, en APP se renderizan todos los componente
 // que componen la application
 function App() {
+  const [todos, setTodos] = useState(defaultTodos);
+  /**searchValue -- estado
+ * setSearchValue -- función modificadora del estado
+ * Valor inicial del estado React.useState('')*/
+  const [searchValue, setSearchValue] = useState('');
+  console.log('Los usuarios buscan todos de ', searchValue);
+
+  const completedTodos = todos.filter(todo => !!todo.completed).length;
+  const totalTodos = todos.length;
+  
   return (
     /**React necesita que se envíe una sola etiqueta por componente */
     <>
       {/* Primera parte de la aplicacion */}
-      <TodoCounter completed={16} total={25} /> 
+      <TodoCounter 
+        completed={completedTodos} 
+        total={totalTodos} 
+      /> 
       {/* Buscador */}
-      <TodoSearch />
+      <TodoSearch 
+        searchValue = {searchValue}
+        setSearchValue = {setSearchValue}
+      />
       {/* Lista de TODOs */}
       <TodoList>
         {defaultTodos.map(todo => (
