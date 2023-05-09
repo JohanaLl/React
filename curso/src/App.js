@@ -17,6 +17,7 @@ const defaultTodos = [
 // Single page application, en APP se renderizan todos los componente
 // que componen la application
 function App() {
+  //Estados
   const [todos, setTodos] = useState(defaultTodos);
   /**searchValue -- estado
  * setSearchValue -- función modificadora del estado
@@ -24,9 +25,16 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
   console.log('Los usuarios buscan todos de ', searchValue);
 
+  //Estados derivados
   const completedTodos = todos.filter(todo => !!todo.completed).length;
   const totalTodos = todos.length;
-  
+  const searchedTodos = todos.filter(
+    (todo) => {
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase()
+      return todoText.includes(searchText)
+    })
+  const estadoTodos = !todos.completed
   return (
     /**React necesita que se envíe una sola etiqueta por componente */
     <>
@@ -42,8 +50,12 @@ function App() {
       />
       {/* Lista de TODOs */}
       <TodoList>
-        {defaultTodos.map(todo => (
-          <TodoItem key={todo.text} text={todo.text} completed={todo.completed}/>
+        {searchedTodos.map(todo => (
+          <TodoItem 
+            key={todo.text} 
+            text={todo.text} 
+            completed={todo.completed}
+            estado={estadoTodos}/>
         ))}
       </TodoList>
       {/* Boton de la aplicacion */}
