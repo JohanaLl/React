@@ -34,7 +34,25 @@ function App() {
       const searchText = searchValue.toLowerCase()
       return todoText.includes(searchText)
     })
-  const estadoTodos = !todos.completed
+
+  const completedTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos[todoIndex].completed = true;
+    setTodos(newTodos);
+  }
+
+  const deletedTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text == text
+    );
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  }
+
   return (
     /**React necesita que se envíe una sola etiqueta por componente */
     <>
@@ -55,7 +73,8 @@ function App() {
             key={todo.text} 
             text={todo.text} 
             completed={todo.completed}
-            estado={estadoTodos}/>
+            onComplete={() => completedTodo(todo.text)}
+            onDeleted={() => deletedTodo(todo.text)}/>
         ))}
       </TodoList>
       {/* Boton de la aplicacion */}
