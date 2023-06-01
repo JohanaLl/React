@@ -6,19 +6,33 @@ import { TodoItem } from './TodoItem'
 import { CreateTodoButton } from './CreateTodoButton'
 
 
-const defaultTodos = [
-  { text: 'Cortar cebolla', completed: true },
-  { text: 'Cortar tomate', completed: false },
-  { text: 'Cortar pepino', completed: false },
-  { text: 'Cortar nuevo', completed: false },
-  { text: 'Usar esatados derivados', completed: true },
-];
+// const defaultTodos = [
+//   { text: 'Cortar cebolla', completed: true },
+//   { text: 'Cortar tomate', completed: false },
+//   { text: 'Cortar pepino', completed: false },
+//   { text: 'Cortar nuevo', completed: false },
+//   { text: 'Usar esatados derivados', completed: true },
+// ];
+
+// localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
+// localStorage.removeItem('TODOS_V1')
 
 // Single page application, en APP se renderizan todos los componente
 // que componen la application
 function App() {
+
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;
+
+  if (!localStorageTodos) {
+    localStorage.setItem('TODOS_V1', JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
   //Estados
-  const [todos, setTodos] = useState(defaultTodos);
+  const [todos, setTodos] = useState(parsedTodos);
   /**searchValue -- estado
  * setSearchValue -- función modificadora del estado
  * Valor inicial del estado React.useState('')*/
@@ -35,22 +49,27 @@ function App() {
       return todoText.includes(searchText)
     })
 
+  const saveTodos = (newTodos) => {
+    localStorage.setItem('TODOS_V1', JSON.stringify(newTodos))
+    setTodos(newTodos)
+  };
+
   const completedTodo = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex(
-      (todo) => todo.text == text
+      (todo) => todo.text === text
     );
     newTodos[todoIndex].completed = true;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
   const deletedTodo = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex(
-      (todo) => todo.text == text
+      (todo) => todo.text === text
     );
     newTodos.splice(todoIndex, 1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   }
 
   return (
@@ -74,7 +93,7 @@ function App() {
             text={todo.text} 
             completed={todo.completed}
             onComplete={() => completedTodo(todo.text)}
-            onDeleted={() => deletedTodo(todo.text)}/>
+            onDelete={() => deletedTodo(todo.text)}/>
         ))}
       </TodoList>
       {/* Boton de la aplicacion */}

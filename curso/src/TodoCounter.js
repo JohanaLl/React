@@ -3,7 +3,7 @@ import'./TodoCounter.css';
 
 function TodoCounter(props) {
     let h1;
-    if (props.completed == props.total) {
+    if (props.completed === props.total) {
         h1 =    <h1 className="TodoCounter"> 
                     ¡Felicitaciones!
                 </h1>
