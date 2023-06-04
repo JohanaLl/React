@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { TodoCounter } from './TodoCounter'
-import { TodoSearch } from './TodoSearch'
-import { TodoList } from './TodoList'
-import { TodoItem } from './TodoItem'
-import { CreateTodoButton } from './CreateTodoButton'
+import { useLocalStorage } from './useLocalStorage';
+import { AppUI } from './AppUI'
 
 
 // const defaultTodos = [
@@ -19,28 +16,6 @@ import { CreateTodoButton } from './CreateTodoButton'
 
 // Single page application, en APP se renderizan todos los componente
 // que componen la application
-
-function useLocalStorage(itemName, initValue) {
-  
-
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
-
-  if (!localStorageItem) {
-    localStorage.setItem(itemName, JSON.stringify(initValue));
-    parsedItem = initValue;
-  } else {
-    parsedItem = JSON.parse(localStorageItem);
-  }
-  const [item, setItem] = React.useState(parsedItem);
-
-  const saveItem = (newItem) => {
-    localStorage.setItem(itemName, JSON.stringify(newItem))
-    setItem(newItem)
-  };
-
-  return [item, saveItem];
-}
 
 function App() {
 
@@ -83,32 +58,14 @@ function App() {
   }
 
   return (
-    /**React necesita que se envíe una sola etiqueta por componente */
-    <>
-      {/* Primera parte de la aplicacion */}
-      <TodoCounter 
-        completed={completedTodos} 
-        total={totalTodos} 
-      /> 
-      {/* Buscador */}
-      <TodoSearch 
-        searchValue = {searchValue}
-        setSearchValue = {setSearchValue}
-      />
-      {/* Lista de TODOs */}
-      <TodoList>
-        {searchedTodos.map(todo => (
-          <TodoItem 
-            key={todo.text} 
-            text={todo.text} 
-            completed={todo.completed}
-            onComplete={() => completedTodo(todo.text)}
-            onDelete={() => deletedTodo(todo.text)}/>
-        ))}
-      </TodoList>
-      {/* Boton de la aplicacion */}
-      <CreateTodoButton/>
-    </>
+    <AppUI
+      completedTodos={completedTodos}
+      totalTodos={totalTodos}
+      searchedTodos={searchedTodos}
+      setSearchValue={setSearchValue}
+      completedTodo={completedTodo}
+      deletedTodo={deletedTodo}
+    />
   );
 }
 
