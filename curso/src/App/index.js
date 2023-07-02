@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocalStorage } from './useLocalStorage';
 import { AppUI } from './AppUI'
 
-
+// localStorage.removeItem('TODOS_V1')
 // const defaultTodos = [
 //   { text: 'Cortar cebolla', completed: true },
 //   { text: 'Cortar tomate', completed: false },
@@ -12,7 +12,7 @@ import { AppUI } from './AppUI'
 // ];
 
 // localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos))
-// localStorage.removeItem('TODOS_V1')
+
 
 // Single page application, en APP se renderizan todos los componente
 // que componen la application
@@ -20,7 +20,12 @@ import { AppUI } from './AppUI'
 function App() {
 
   //Estados
-  const [todos, saveTodos] = useLocalStorage('TODOS_V1', []);
+  const {
+    item: todos, 
+    saveItem: saveTodos, 
+    loading, 
+    error
+  } = useLocalStorage('TODOS_V1', []);
   /**searchValue -- estado
  * setSearchValue -- función modificadora del estado
  * Valor inicial del estado React.useState('')*/
@@ -57,7 +62,7 @@ function App() {
     saveTodos(newTodos);
   }
 
-  console.log("Log 1");
+  // console.log("Log 1");
   /**Cuando la función useEffect no tiene más argumentos, lo que está dentro de la funcón
    * se va a ejecutar siempre al final de cada render
    */
@@ -76,13 +81,15 @@ function App() {
    * ejecutará la primera vez del render y adicionalmente cada vez que se cambie el estado derivado que se 
    * pasó como parámetro en el array en este caso completedTodos
   */
-  React.useEffect(() => {
-    console.log("Log 2");
-  }, [completedTodos])
-  console.log("Log 3");
+  // React.useEffect(() => {
+  //   console.log("Log 2");
+  // }, [completedTodos])
+  // console.log("Log 3");
 
   return (
     <AppUI
+      loading={loading}
+      error={error}
       completedTodos={completedTodos}
       totalTodos={totalTodos}
       searchedTodos={searchedTodos}
