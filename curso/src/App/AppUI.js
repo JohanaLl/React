@@ -6,30 +6,32 @@ import { TodosLoading } from '../TodosLoading'
 import { TodosError } from '../TodosError'
 import { EmptyTodos } from '../EmptyTodos'
 import { CreateTodoButton } from '../CreateTodoButton'
+import React from 'react'
+import { TodoContext } from '../TodoContext'
 
-function AppUI ({
-    loading,
-    error,
-    completedTodos,
-    totalTodos,
-    searchValue,
-    setSearchValue,
-    searchedTodos,
-    completedTodo,
-    deletedTodo
-}) {
+function AppUI () {
+
+    const {
+      loading,
+      error,
+      searchedTodos,
+      completedTodo,
+      deletedTodo
+    } = React.useContext(TodoContext);
+
     return (
         /**React necesita que se envíe una sola etiqueta por componente */
         <>
           {/* Primera parte de la aplicacion */}
           <TodoCounter 
-            completed={completedTodos} 
-            total={totalTodos} 
+          //props
+            // completed={completedTodos} 
+            // total={totalTodos} 
           /> 
           {/* Buscador */}
           <TodoSearch 
-            searchValue = {searchValue}
-            setSearchValue = {setSearchValue}
+            // searchValue = {searchValue}
+            // setSearchValue = {setSearchValue}
           />
           {/* Lista de TODOs */}
           <TodoList>
