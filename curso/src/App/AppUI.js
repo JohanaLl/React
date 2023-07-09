@@ -9,6 +9,7 @@ import { CreateTodoButton } from '../CreateTodoButton'
 import React from 'react'
 import { Modal } from '../Modal'
 import { TodoContext } from '../TodoContext'
+import { TodoForm } from '../TodoForm'
 
 
 function AppUI () {
@@ -56,7 +57,7 @@ function AppUI () {
           <CreateTodoButton/>
           {openModal && (
             <Modal>
-              La funcionalidad de agregar TODO
+              <TodoForm/>
             </Modal>
           )}
         </>
