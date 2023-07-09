@@ -5,15 +5,15 @@ import { TodoContext } from "../TodoContext";
 function CreateTodoButton() {
 
     //Manda las variables para la modioficacion de ese estado con el useContext
-    const {setOpenModal, openModal} = React.useContext(TodoContext);
+    const {setOpenModal} = React.useContext(TodoContext);
 
     return(
         <button 
             className="CreateTodoButton"
             onClick={
                 () => {
-                    console.log(openModal);
-                    setOpenModal(!openModal)
+                    //En este caso la funcion recibe el estado
+                    setOpenModal(state => !state)
                 }
             }
         >+</button>
