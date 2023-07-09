@@ -16,6 +16,8 @@ function TodoProvider({ children }) {
      * setSearchValue -- función modificadora del estado
      * Valor inicial del estado React.useState('')*/
     const [searchValue, setSearchValue] = React.useState('');
+    //Estado / actualizador
+    const [openModal, setOpenModal] = React.useState(false);
     console.log('Los usuarios buscan todos de ', searchValue);
 
     //Estados derivados
@@ -49,7 +51,7 @@ function TodoProvider({ children }) {
     }
 
     return(
-        //Todo lo que está por dentro de value es lo que se expone del componente del contexto
+        //Todo lo que está por dentro de value es lo que se expone o exporta
         <TodoContext.Provider value={{
             loading,
             error,
@@ -59,7 +61,9 @@ function TodoProvider({ children }) {
             setSearchValue,
             searchedTodos,
             completedTodo,
-            deletedTodo
+            deletedTodo,
+            openModal,
+            setOpenModal
         }}>
             { children }
         </TodoContext.Provider>

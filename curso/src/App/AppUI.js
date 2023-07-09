@@ -7,7 +7,9 @@ import { TodosError } from '../TodosError'
 import { EmptyTodos } from '../EmptyTodos'
 import { CreateTodoButton } from '../CreateTodoButton'
 import React from 'react'
+import { Modal } from '../Modal'
 import { TodoContext } from '../TodoContext'
+
 
 function AppUI () {
 
@@ -16,23 +18,19 @@ function AppUI () {
       error,
       searchedTodos,
       completedTodo,
-      deletedTodo
+      deletedTodo,
+      openModal, //acá se pueden recibir estos estados que exportamos del contexto
+      setOpenModal,
     } = React.useContext(TodoContext);
 
     return (
         /**React necesita que se envíe una sola etiqueta por componente */
         <>
           {/* Primera parte de la aplicacion */}
-          <TodoCounter 
-          //props
-            // completed={completedTodos} 
-            // total={totalTodos} 
-          /> 
+          <TodoCounter /> 
           {/* Buscador */}
-          <TodoSearch 
-            // searchValue = {searchValue}
-            // setSearchValue = {setSearchValue}
-          />
+          <TodoSearch />
+
           {/* Lista de TODOs */}
           <TodoList>
             {loading && (
@@ -56,6 +54,11 @@ function AppUI () {
           </TodoList>
           {/* Boton de la aplicacion */}
           <CreateTodoButton/>
+          {openModal && (
+            <Modal>
+              La funcionalidad de agregar TODO
+            </Modal>
+          )}
         </>
       );
 }
